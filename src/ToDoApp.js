@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+import {
+  Panel,
+} from './components';
+
 export class ToDoApp extends Component {
   render() {
     return (
-      <div className="panel">
+      <Panel>
         <h1 className="panelHeader">
           To-dos
         </h1>
@@ -86,7 +90,7 @@ export class ToDoApp extends Component {
         <button className="button">
           Create To-Do
         </button>
-      </div>
+      </Panel>
     );
   }
 }
