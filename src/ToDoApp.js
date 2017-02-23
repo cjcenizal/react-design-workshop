@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import {
   Panel,
   PanelHeader,
+  ToDoList,
+  ToDoListItem,
 } from './components';
 
 export class ToDoApp extends Component {
@@ -13,25 +15,19 @@ export class ToDoApp extends Component {
           To-dos
         </PanelHeader>
 
-        <ol className="toDoList">
-          <li className="toDoListItem">
-            <div className="toDoListItem__body">
-              Build React app
-            </div>
-          </li>
+        <ToDoList>
+          <ToDoListItem>
+            Build React app
+          </ToDoListItem>
 
-          <li className="toDoListItem">
-            <div className="toDoListItem__body">
-              ???
-            </div>
-          </li>
+          <ToDoListItem>
+            ???
+          </ToDoListItem>
 
-          <li className="toDoListItem">
-            <div className="toDoListItem__body">
-              Profit!
-            </div>
-          </li>
-        </ol>
+          <ToDoListItem>
+            Profit!
+          </ToDoListItem>
+        </ToDoList>
       </Panel>
     );
   }
