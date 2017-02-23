@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 
 import {
   Panel,
+  PanelHeader,
 } from './components';
 
 export class ToDoApp extends Component {
   render() {
     return (
       <Panel>
-        <h1 className="panelHeader">
+        <PanelHeader>
           To-dos
-        </h1>
+        </PanelHeader>
 
         <label className="label">
           Search
