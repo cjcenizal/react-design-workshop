@@ -21,26 +21,30 @@ npm start
 
 ## Challenges
 
+All CSS has already been written.
+
 ### Build a To-do list
 
 ![list_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/list_todos.jpg)
 
-Steps:
-
-1. Markup and classes ready to go
-2. Build ToDoPanel
-3. Build ToDoPanelHeader
-4. Build ToDoList
-5. Build ToDoListItem
-6. Create a state object with an "items" property
-7. Dynamically build the items
-8. Create a ToDo class
-
-Demonstrates:
+#### Concepts
 
 * Composition
 * Props vs state
 * Domain vs UI
+
+#### Build components
+
+1. Build ToDoPanel
+2. Build ToDoPanelHeader
+3. Build ToDoList
+4. Build ToDoListItem
+
+#### Create abstractrions
+
+1. Create a ToDo class
+2. Create a state object with an "items" property
+3. Dynamically build the items
 
 > [See the solution]()
 
