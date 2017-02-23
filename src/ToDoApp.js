@@ -20,6 +20,7 @@ export class ToDoApp extends Component {
     super();
 
     this.state = {
+      searchTerm: '',
       toDos: [
         new ToDo('Build React app'),
         new ToDo('???'),
@@ -28,10 +29,21 @@ export class ToDoApp extends Component {
       newToDoBody: '',
     };
 
+    this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
     this.handleCreateTodDoFormSubmit = this.handleCreateTodDoFormSubmit.bind(this);
     this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
     this.handleDeleteToDoClick = this.handleDeleteToDoClick.bind(this);
+  }
+
+  handleSearchFormSubmit(event) {
+    event.preventDefault();
+    this.searchToDos(this.state.searchTerm);
+  }
+
+  handleSearchInputChange(event) {
+    this.searchToDos(event.target.value);
   }
 
   handleNewToDoInputChange(event) {
@@ -54,6 +66,29 @@ export class ToDoApp extends Component {
     });
   }
 
+  searchToDos(searchTerm) {
+    this.setState({
+      searchTerm,
+    });
+  }
+
+  getRenderableToDos() {
+    function getFilteredToDos(searchTerm, toDos) {
+      return toDos.filter(toDo =>
+        toDo.body.trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) !== -1
+      );
+    }
+
+    const searchTerm = this.state.searchTerm;
+
+    const renderableToDos =
+      searchTerm.trim().length
+      ? getFilteredToDos(searchTerm, this.state.toDos)
+      : this.state.toDos.slice(0);
+
+    return renderableToDos;
+  }
+
   canCreateNewToDo() {
     return this.state.newToDoBody.trim().length > 0;
   }
@@ -65,8 +100,10 @@ export class ToDoApp extends Component {
     });
   }
 
-  renderItems() {
-    return this.state.toDos.map(item => (
+  renderToDos() {
+    const renderableToDos = this.getRenderableToDos();
+
+    return renderableToDos.map(item => (
       <DeletableToDoListItem
         key={item.id}
         itemId={item.id}
@@ -84,8 +121,19 @@ export class ToDoApp extends Component {
           To-dos
         </PanelHeader>
 
+        <Label>
+          Search
+        </Label>
+
+        <form onSubmit={this.handleSearchFormSubmit}>
+          <TextInput
+            value={this.state.searchTerm}
+            onChange={this.handleSearchInputChange}
+          />
+        </form>
+
         <ToDoList>
-          {this.renderItems()}
+          {this.renderToDos()}
         </ToDoList>
 
         <HorizontalRule />

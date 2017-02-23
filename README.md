@@ -75,7 +75,7 @@ All CSS has already been written.
 * Wiring UI with business logic
 * Controlling appearance with props
 
-#### Build components
+#### Tasks
 
 1. Add markup
    ```html
@@ -119,8 +119,11 @@ All CSS has already been written.
 #### Build components
 
 1. Update ToDoListItem with additional markup
-2. Create DeletableToDoListItem
-3. Add `handleDeleteToDoClick` handler
+2. Build DeletableToDoListItem
+
+#### Business logic
+
+1. Add `handleDeleteToDoClick` handler
 
 > [See the solution]()
 
@@ -129,6 +132,28 @@ All CSS has already been written.
 ### Add "Search" functionality
 
 ![search_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/search_todos.jpg)
+
+#### Concepts
+
+* State as single source of truth
+* Render as a projection of state
+* Derive subsets of state from single source of truth
+
+
+#### Build components
+
+1. Duplicate Label, form, and TextInput.
+
+
+#### Business logic
+
+1. Add `searchTerm` state
+2. Add event handlers
+3. Add `searchToDos` and `getRenderableToDos` methods
+
+> [See the solution]()
+
+---------------------------------------------------------------------
 
 ### Allow users to mark some To-dos as "critical"
 
