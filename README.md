@@ -42,6 +42,8 @@ Demonstrates:
 * Props vs state
 * Domain vs UI
 
+> [See the solution]()
+
 ### Add "Create To-do" functionality
 
 ![create_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/create_todos.jpg)
@@ -58,14 +60,10 @@ Demonstrates:
 
 ![critical_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/critical_todos.jpg)
 
-### Extra "credit"
-
-For imaginary bonus points, try solving some more difficult challenges.
-
 #### Add "Edit" functionality
+
+![edit_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/edit_todos.jpg)
 
 #### Add "Sorting" functionality
 
-#### Add "Reordering"
-
-#### Make the form collapsible
+![sort_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/sort_todos.jpg)
