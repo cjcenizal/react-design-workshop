@@ -68,13 +68,14 @@ All CSS has already been written.
 
 ![create_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/create_todos.jpg)
 
-#### Build components
-
 #### Concepts
 
-* Event handlers and callback-passing
+* Event handlers
 * Business logic
 * Wiring UI with business logic
+* Controlling appearance with props
+
+#### Build components
 
 1. Add markup
    ```html
@@ -109,6 +110,12 @@ All CSS has already been written.
 ### Add "Delete To-do" functionality
 
 ![delete_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/delete_todos.jpg)
+
+#### Build components
+
+> [See the solution]()
+
+---------------------------------------------------------------------
 
 ### Add "Search" functionality
 

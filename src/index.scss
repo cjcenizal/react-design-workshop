@@ -196,6 +196,12 @@ body {
     background-color: #338D66;
     box-shadow: none;
   }
+
+  &:disabled {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+  }
 }
 
 .sortButton {

@@ -30,7 +30,7 @@ export class ToDoApp extends Component {
 
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
     this.handleCreateNewFormSubmit = this.handleCreateNewFormSubmit.bind(this);
-    this.handleCreateNewTodoClick = this.handleCreateNewTodoClick.bind(this);
+    this.handleCreateNewToDoClick = this.handleCreateNewToDoClick.bind(this);
   }
 
   handleNewToDoInputChange(event) {
@@ -43,8 +43,12 @@ export class ToDoApp extends Component {
     event.preventDefault();
   }
 
-  handleCreateNewTodoClick() {
+  handleCreateNewToDoClick() {
     this.createToDo();
+  }
+
+  canCreateNewToDo() {
+    return this.state.newToDoBody.trim().length > 0;
   }
 
   createToDo() {
@@ -85,7 +89,10 @@ export class ToDoApp extends Component {
             onChange={this.handleNewToDoInputChange}
           />
 
-          <Button onClick={this.handleCreateNewTodoClick}>
+          <Button
+            onClick={this.handleCreateNewToDoClick}
+            isDisabled={!this.canCreateNewToDo()}
+          >
             Create To-do
           </Button>
         </form>
