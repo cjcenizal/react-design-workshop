@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px; }
+
+.panel {
+  width: 500px;
+  background-color: #EFF2F4;
+  border: 1px solid #C6CFD5;
+  padding: 2rem 2rem 2.5rem;
+  box-shadow: 0 2px 8px rgba(20, 46, 64, 0.2);
+  margin-bottom: 3rem; }
+
+.panelHeader {
+  border-bottom: 1px solid #D3D9DE;
+  color: #4E6371;
+  font-size: 1.8rem;
+  padding-bottom: 0.5rem;
+  font-weight: 300;
+  margin-top: 0px;
+  margin-bottom: 1.5rem; }
+
+.toDoList {
+  counter-reset: my-badass-counter;
+  margin-top: 0px;
+  margin-bottom: 1.5rem;
+  padding: 0; }
+  .toDoList > * + * {
+    margin-top: 0.5rem; }
+
+.toDoListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-position: inside;
+  padding: 1rem;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #515151; }
+
+.toDoListItem--critical {
+  background-color: #FFF7F7;
+  border-color: #D97373;
+  color: #C21B1B; }
+
+.toDoListItem__button {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 300;
+  background-color: transparent;
+  color: #3796D6;
+  text-decoration: underline; }
+  .toDoListItem__button:hover {
+    color: #0f649e; }
+
+.horizontalRule {
+  border-bottom: 1px solid #D3D9DE;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 1.5rem; }
+
+.label {
+  display: block;
+  font-size: 1rem;
+  color: #4E6371;
+  margin-bottom: 0.5rem;
+  font-weight: 300; }
+
+.textInput {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  color: #515151;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem; }
+
+.textInput--inline {
+  margin-bottom: 0; }
+
+.checkBoxLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem; }
+
+.checkBoxLabel__text {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #4E6371;
+  margin-left: 10px; }
+
+.checkBox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px; }
+  .checkBox:checked {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 0 6px white;
+    background-color: #3796D6; }
+
+.button {
+  appearance: none;
+  cursor: pointer;
+  display: block;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #51B087;
+  border: 1px solid #338D66;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5), inset 0 1px 0 #44d295;
+  margin-bottom: 1.5rem; }
+  .button:active {
+    background-color: #338D66;
+    box-shadow: none; }
+  .button:disabled {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5; }
+
+.sortButton {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 300;
+  background-color: transparent;
+  color: #3796D6;
+  text-decoration: underline;
+  margin-bottom: 0.5rem; }
+  .sortButton:hover {
+    color: #0f649e; }
