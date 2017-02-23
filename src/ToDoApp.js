@@ -42,6 +42,18 @@ export class ToDoApp extends Component {
         <ToDoList>
           {this.renderItems()}
         </ToDoList>
+
+        <hr className="horizontalRule" />
+
+        <label className="label">
+          Create new To-do
+        </label>
+
+        <input type="text" className="textInput" />
+
+        <button className="button">
+          Create To-Do
+        </button>
       </Panel>
     );
   }

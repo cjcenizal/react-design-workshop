@@ -48,9 +48,34 @@ All CSS has already been written.
 
 > [See the solution]()
 
+----------------------------------------------------------------------
+
 ### Add "Create To-do" functionality
 
 ![create_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/create_todos.jpg)
+
+#### Build components
+
+1. Add markup
+   ```html
+        <hr className="horizontalRule" />
+
+        <label className="label">
+          Create new To-do
+        </label>
+
+        <input type="text" className="textInput" />
+
+        <button className="button">
+          Create To-Do
+        </button>
+  ```
+2. Build HorizontalRule
+3. Build Label
+4. Build TextInput
+5. Build Button
+
+----------------------------------------------------------------------
 
 ### Add "Delete To-do" functionality
 
