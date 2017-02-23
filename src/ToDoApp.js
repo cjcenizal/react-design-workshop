@@ -7,21 +7,20 @@ import {
   ToDoListItem,
 } from './components';
 
+import {
+  ToDo,
+} from './models';
+
 export class ToDoApp extends Component {
   constructor() {
     super();
 
     this.state = {
-      items: [{
-        id: 0,
-        body: 'Build React app',
-      }, {
-        id: 1,
-        body: '???',
-      }, {
-        id: 2,
-        body: 'Profit!',
-      }],
+      items: [
+        new ToDo('Build React app'),
+        new ToDo('???'),
+        new ToDo('Profit!'),
+      ],
     };
   }
 

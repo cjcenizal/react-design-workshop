@@ -42,9 +42,9 @@ All CSS has already been written.
 
 #### Create abstractrions
 
-1. Create a ToDo class
-2. Create a state object with an "items" property
-3. Dynamically build the items
+1. Create a state object with an "items" property
+2. Dynamically build the items
+3. Create a ToDo class
 
 > [See the solution]()
 
