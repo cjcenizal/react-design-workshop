@@ -29,6 +29,7 @@ export class ToDoApp extends Component {
     };
 
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
+    this.handleCreateNewFormSubmit = this.handleCreateNewFormSubmit.bind(this);
     this.handleCreateNewTodoClick = this.handleCreateNewTodoClick.bind(this);
   }
 
@@ -38,16 +39,18 @@ export class ToDoApp extends Component {
     });
   }
 
-  handleCreateNewTodoClick() {
-    this.createToDo(this.state.newToDoBody);
-    this.setState({
-      newToDoBody: '',
-    });
+  handleCreateNewFormSubmit(event) {
+    event.preventDefault();
   }
 
-  createToDo(body) {
+  handleCreateNewTodoClick() {
+    this.createToDo();
+  }
+
+  createToDo() {
     this.setState({
-      toDos: this.state.toDos.concat(new ToDo(body)),
+      toDos: this.state.toDos.concat(new ToDo(this.state.newToDoBody)),
+      newToDoBody: '',
     });
   }
 
@@ -76,14 +79,16 @@ export class ToDoApp extends Component {
           Create new To-do
         </Label>
 
-        <TextInput
-          value={this.state.newToDoBody}
-          onChange={this.handleNewToDoInputChange}
-        />
+        <form onSubmit={this.handleCreateNewFormSubmit}>
+          <TextInput
+            value={this.state.newToDoBody}
+            onChange={this.handleNewToDoInputChange}
+          />
 
-        <Button onClick={this.handleCreateNewTodoClick}>
-          Create To-do
-        </Button>
+          <Button onClick={this.handleCreateNewTodoClick}>
+            Create To-do
+          </Button>
+        </form>
       </Panel>
     );
   }

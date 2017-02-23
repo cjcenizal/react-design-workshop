@@ -94,6 +94,8 @@ All CSS has already been written.
 3. Build Label
 4. Build TextInput
 5. Build Button
+6. Bonus: Wrap TextInput and Button in a form element so you can submit it by hitting the enter key.
+7. Bonus: Disable Button when there's no input.
 
 #### Add business logic
 
