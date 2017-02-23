@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
 import {
+  HorizontalRule,
+  Label,
   Panel,
   PanelHeader,
+  TextInput,
   ToDoList,
   ToDoListItem,
 } from './components';
@@ -16,16 +19,25 @@ export class ToDoApp extends Component {
     super();
 
     this.state = {
-      items: [
+      toDos: [
         new ToDo('Build React app'),
         new ToDo('???'),
         new ToDo('Profit!'),
       ],
+      newToDoBody: '',
     };
+
+    this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
+  }
+
+  handleNewToDoInputChange(event) {
+    this.setState({
+      newToDoBody: event.target.value,
+    });
   }
 
   renderItems() {
-    return this.state.items.map(item => (
+    return this.state.toDos.map(item => (
       <ToDoListItem key={item.id}>
         {item.body}
       </ToDoListItem>
@@ -43,13 +55,16 @@ export class ToDoApp extends Component {
           {this.renderItems()}
         </ToDoList>
 
-        <hr className="horizontalRule" />
+        <HorizontalRule />
 
-        <label className="label">
+        <Label>
           Create new To-do
-        </label>
+        </Label>
 
-        <input type="text" className="textInput" />
+        <TextInput
+          value={this.state.newToDoBody}
+          onChange={this.handleNewToDoInputChange}
+        />
 
         <button className="button">
           Create To-Do

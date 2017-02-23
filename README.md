@@ -32,6 +32,7 @@ All CSS has already been written.
 * Composition
 * Props vs state
 * Domain vs UI
+* Render methods
 
 #### Build components
 
@@ -42,13 +43,26 @@ All CSS has already been written.
 
 #### Create abstractrions
 
-1. Create a state object with an "items" property
-2. Dynamically build the items
-3. Create a ToDo class
+1. Create a state object with an "toDos" property
+2. Dynamically build the To-do items
+3. Create a ToDo model in the `/models` directory
+   ```javascript
+    // ToDo.js
+    let count = 0;
+
+    export class ToDo {
+      constructor(body) {
+        this.id = count++;
+        this.body = body;
+      }
+    }
+  ```
+  Export this from the index file.
+4. Import it into `ToDoApp.js`, and use it to populate your todos array.
 
 > [See the solution]()
 
-----------------------------------------------------------------------
+---------------------------------------------------------------------
 
 ### Add "Create To-do" functionality
 
@@ -56,26 +70,39 @@ All CSS has already been written.
 
 #### Build components
 
+#### Concepts
+
+* Event handlers and callback-passing
+* Business logic
+* Wiring UI with business logic
+
 1. Add markup
    ```html
-        <hr className="horizontalRule" />
+  <hr className="horizontalRule" />
 
-        <label className="label">
-          Create new To-do
-        </label>
+  <label className="label">
+    Create new To-do
+  </label>
 
-        <input type="text" className="textInput" />
+  <input type="text" className="textInput" />
 
-        <button className="button">
-          Create To-Do
-        </button>
+  <button className="button">
+    Create To-Do
+  </button>
   ```
 2. Build HorizontalRule
 3. Build Label
 4. Build TextInput
 5. Build Button
 
-----------------------------------------------------------------------
+#### Add business logic
+
+1. Add `createItem` method to `ToDoApp.js`
+2. Add an `onClick` handler
+
+> [See the solution]()
+
+---------------------------------------------------------------------
 
 ### Add "Delete To-do" functionality
 
