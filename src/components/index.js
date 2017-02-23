@@ -1,3 +1,4 @@
+export { Button } from './Button';
 export { HorizontalRule } from './HorizontalRule';
 export { Label } from './Label';
 export { Panel } from './Panel';
