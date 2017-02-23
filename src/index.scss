@@ -1,8 +1,25 @@
-$verticalRhythm: 30px;
-$fontSize: 18px;
+$fontSize: 14px;
+$verticalRhythm: 1.5rem;
+$smallRhythm: 0.5rem;
 
 @mixin border {
   border-bottom: 1px solid #D3D9DE;
+}
+
+@mixin linkButton {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  font-size: $fontSize;
+  font-weight: 300;
+  background-color: transparent;
+  color: #3796D6;
+  text-decoration: underline;
+
+  &:hover {
+    color: #0f649e;
+  }
 }
 
 * {
@@ -12,25 +29,26 @@ $fontSize: 18px;
 body {
   display: flex;
   justify-content: center;
-  margin: 80px 0 0;
+  margin: 2rem 0 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  font-size: $fontSize;
 }
 
 .panel {
-  width: 618px;
+  width: 500px;
   background-color: #EFF2F4;
   border: 1px solid #C6CFD5;
-  padding: 40px 40px 50px;
+  padding: 2rem 2rem 2.5rem;
   box-shadow: 0 2px 8px rgba(#142E40, 0.2);
-  margin-bottom: 100px;
+  margin-bottom: 3rem;
 }
 
 .panelHeader {
   @include border;
   color: #4E6371;
-  font-size: 24px;
-  padding-bottom: 10px;
+  font-size: 1.8rem;
+  padding-bottom: $smallRhythm;
   font-weight: 300;
   margin-top: 0px;
   margin-bottom: $verticalRhythm;
@@ -43,7 +61,7 @@ body {
   padding: 0;
 
   > * + * {
-    margin-top: 10px;
+    margin-top: $smallRhythm;
   }
 }
 
@@ -52,32 +70,23 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style-position: inside;
-  padding: 20px;
+  padding: 1rem;
   background-color: #FFFFFF;
   border: 1px solid #D3D9DE;
   border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #515151;
 }
 
-  .toDoListItem__body {
-    font-size: $fontSize;
-    font-weight: 700;
-    color: #515151;
+.toDoListItem--critical {
+  background-color: #FFF7F7;
+  border-color: #D97373;
+  color: #C21B1B;
+}
 
-    &:before {
-      content: counter(my-badass-counter) ". ";
-      counter-increment: my-badass-counter;
-    }
-  }
-
-  .toDoListItem__delete {
-    appearance: none;
-    cursor: pointer;
-    border: none;
-    font-size: $fontSize;
-    font-weight: 300;
-    background-color: transparent;
-    color: #3796D6;
-    text-decoration: underline;
+  .toDoListItem__button {
+    @include linkButton;
   }
 
 .horizontalRule {
@@ -90,9 +99,9 @@ body {
 
 .label {
   display: block;
-  font-size: $fontSize;
+  font-size: 1rem;
   color: #4E6371;
-  margin-bottom: 10px;
+  margin-bottom: $smallRhythm;
   font-weight: 300;
 }
 
@@ -100,23 +109,61 @@ body {
   appearance: none;
   display: block;
   width: 100%;
-  padding: 16px 20px;
-  font-size: $fontSize;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
   color: #515151;
   background-color: #FFFFFF;
   border: 1px solid #D3D9DE;
   box-shadow:
     0 1px 0 rgba(#FFFFFF, 0.5),
-    inset  0 2px 4px rgba(#000000, 0.1);
+    inset 0 2px 4px rgba(#000000, 0.1);
   margin-bottom: $verticalRhythm;
+}
+
+.textInput--inline {
+  margin-bottom: 0;
+}
+
+.checkBoxLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: $verticalRhythm;
+}
+
+  .checkBoxLabel__text {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4E6371;
+    margin-left: 10px;
+  }
+
+.checkBox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  box-shadow:
+    0 1px 0 rgba(#FFFFFF, 0.5),
+    inset 0 2px 4px rgba(#000000, 0.1);
+  border-radius: 4px;
+
+  &:checked {
+    box-shadow:
+      0 1px 0 rgba(#FFFFFF, 0.5),
+      inset 0 2px 4px rgba(#000000, 0.1),
+      inset 0 0 0 6px rgba(#FFFFFF, 1);
+    background-color: #3796D6;
+  }
 }
 
 .button {
   appearance: none;
   cursor: pointer;
   display: block;
-  padding: 15px 20px;
-  font-size: $fontSize;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #FFFFFF;
   background-color: #51B087;
@@ -124,11 +171,23 @@ body {
   border-radius: 8px;
   box-shadow:
     0 2px 4px rgba(#FFFFFF, 0.5),
-    inset  0 1px 0 rgba(#44D295, 1);
+    inset 0 1px 0 rgba(#44D295, 1);
   margin-bottom: $verticalRhythm;
 
   &:active {
     background-color: #338D66;
     box-shadow: none;
   }
+
+  &:disabled {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+  }
+}
+
+.sortButton {
+  @include linkButton;
+
+  margin-bottom: $smallRhythm;
 }
