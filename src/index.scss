@@ -1,0 +1,133 @@
+$verticalRhythm: 30px;
+$fontSize: 18px;
+
+@mixin border {
+  border-bottom: 1px solid #D3D9DE;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  margin: 80px 0 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.panel {
+  width: 618px;
+  background-color: #EFF2F4;
+  border: 1px solid #C6CFD5;
+  padding: 40px 40px 50px;
+  box-shadow: 0 2px 8px rgba(#142E40, 0.2);
+}
+
+.panelHeader {
+  @include border;
+  color: #4E6371;
+  font-size: 24px;
+  padding-bottom: 10px;
+  font-weight: 300;
+  margin-top: 0px;
+  margin-bottom: $verticalRhythm;
+}
+
+.toDoList {
+  counter-reset: my-badass-counter;
+  margin-top: 0px;
+  margin-bottom: $verticalRhythm;
+  padding: 0;
+
+  > * + * {
+    margin-top: 10px;
+  }
+}
+
+.toDoListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-position: inside;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  border-radius: 4px;
+}
+
+  .toDoListItem__body {
+    font-size: $fontSize;
+    font-weight: 700;
+    color: #515151;
+
+    &:before {
+      content: counter(my-badass-counter) ". ";
+      counter-increment: my-badass-counter;
+    }
+  }
+
+  .toDoListItem__delete {
+    appearance: none;
+    cursor: pointer;
+    border: none;
+    font-size: $fontSize;
+    font-weight: 300;
+    background-color: transparent;
+    color: #3796D6;
+    text-decoration: underline;
+  }
+
+.horizontalRule {
+  @include border;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: $verticalRhythm;
+}
+
+.label {
+  display: block;
+  font-size: $fontSize;
+  color: #4E6371;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.textInput {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 16px 20px;
+  font-size: $fontSize;
+  color: #515151;
+  background-color: #FFFFFF;
+  border: 1px solid #D3D9DE;
+  box-shadow:
+    0 1px 0 rgba(#FFFFFF, 0.5),
+    inset  0 2px 4px rgba(#000000, 0.1);
+  margin-bottom: $verticalRhythm;
+}
+
+.button {
+  appearance: none;
+  cursor: pointer;
+  display: block;
+  padding: 15px 20px;
+  font-size: $fontSize;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #51B087;
+  border: 1px solid #338D66;
+  border-radius: 8px;
+  box-shadow:
+    0 2px 4px rgba(#FFFFFF, 0.5),
+    inset  0 1px 0 rgba(#44D295, 1);
+  margin-bottom: $verticalRhythm;
+
+  &:active {
+    background-color: #338D66;
+    box-shadow: none;
+  }
+}
