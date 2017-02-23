@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import {
   Button,
+  DeletableToDoListItem,
   HorizontalRule,
   Label,
   Panel,
   PanelHeader,
   TextInput,
   ToDoList,
-  ToDoListItem,
 } from './components';
 
 import {
@@ -29,8 +29,9 @@ export class ToDoApp extends Component {
     };
 
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
-    this.handleCreateNewFormSubmit = this.handleCreateNewFormSubmit.bind(this);
-    this.handleCreateNewToDoClick = this.handleCreateNewToDoClick.bind(this);
+    this.handleCreateTodDoFormSubmit = this.handleCreateTodDoFormSubmit.bind(this);
+    this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
+    this.handleDeleteToDoClick = this.handleDeleteToDoClick.bind(this);
   }
 
   handleNewToDoInputChange(event) {
@@ -39,12 +40,18 @@ export class ToDoApp extends Component {
     });
   }
 
-  handleCreateNewFormSubmit(event) {
+  handleCreateTodDoFormSubmit(event) {
     event.preventDefault();
   }
 
-  handleCreateNewToDoClick() {
+  handleCreateToDoClick() {
     this.createToDo();
+  }
+
+  handleDeleteToDoClick(toDoId) {
+    this.setState({
+      toDos: this.state.toDos.filter(toDo => toDo.id !== toDoId),
+    });
   }
 
   canCreateNewToDo() {
@@ -60,9 +67,13 @@ export class ToDoApp extends Component {
 
   renderItems() {
     return this.state.toDos.map(item => (
-      <ToDoListItem key={item.id}>
+      <DeletableToDoListItem
+        key={item.id}
+        itemId={item.id}
+        onDeleteClick={this.handleDeleteToDoClick}
+      >
         {item.body}
-      </ToDoListItem>
+      </DeletableToDoListItem>
     ));
   }
 
@@ -83,14 +94,14 @@ export class ToDoApp extends Component {
           Create new To-do
         </Label>
 
-        <form onSubmit={this.handleCreateNewFormSubmit}>
+        <form onSubmit={this.handleCreateTodDoFormSubmit}>
           <TextInput
             value={this.state.newToDoBody}
             onChange={this.handleNewToDoInputChange}
           />
 
           <Button
-            onClick={this.handleCreateNewToDoClick}
+            onClick={this.handleCreateToDoClick}
             isDisabled={!this.canCreateNewToDo()}
           >
             Create To-do

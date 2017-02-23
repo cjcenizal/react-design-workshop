@@ -8,10 +8,15 @@ export const ToDoListItem = props => {
       <div className="toDoListItem__body">
         {props.children}
       </div>
+
+      <div className="toDoListItem__actions">
+        {props.actions}
+      </div>
     </li>
   );
 };
 
 ToDoListItem.propTypes = {
   children: PropTypes.node,
+  actions: PropTypes.node,
 };

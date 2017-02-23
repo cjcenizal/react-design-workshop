@@ -111,7 +111,16 @@ All CSS has already been written.
 
 ![delete_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/delete_todos.jpg)
 
+#### Concepts
+
+* Component substitutability
+* Avoiding overloading
+
 #### Build components
+
+1. Update ToDoListItem with additional markup
+2. Create DeletableToDoListItem
+3. Add `handleDeleteToDoClick` handler
 
 > [See the solution]()
 
