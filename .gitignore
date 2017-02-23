@@ -17,4 +17,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # CSS, compiled by SASS
-src/**/*.css
+/src/**/*.css
