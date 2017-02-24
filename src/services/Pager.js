@@ -7,8 +7,8 @@ export class Pager {
     return currentPage > 0;
   }
 
-  canPageNext(totalItems, currentPage) {
-    const pagesCount = Math.ceil(totalItems / this.itemsPerPage);
+  canPageNext(itemsCount, currentPage) {
+    const pagesCount = this.getPagesCount(itemsCount);
     return currentPage < pagesCount - 1;
   }
 
@@ -19,5 +19,9 @@ export class Pager {
       index >= startIndex
       && index < endIndex
     ));
+  }
+
+  getPagesCount(itemsCount) {
+    return Math.ceil(itemsCount / this.itemsPerPage);
   }
 }

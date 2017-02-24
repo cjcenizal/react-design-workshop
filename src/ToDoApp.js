@@ -17,6 +17,7 @@ import {
 
 import {
   Pager,
+  Searcher,
 } from './services';
 
 export class ToDoApp extends Component {
@@ -29,21 +30,22 @@ export class ToDoApp extends Component {
         new ToDo('Build React app'),
         new ToDo('???'),
         new ToDo('Profit!'),
-        new ToDo('1'),
-        new ToDo('2'),
-        new ToDo('3'),
-        new ToDo('4'),
-        new ToDo('5'),
-        new ToDo('6'),
-        new ToDo('7'),
-        new ToDo('8'),
-        new ToDo('9'),
+        new ToDo('1a'),
+        new ToDo('2a'),
+        new ToDo('3a'),
+        new ToDo('4a'),
+        new ToDo('5b'),
+        new ToDo('6b'),
+        new ToDo('7b'),
+        new ToDo('8a'),
+        new ToDo('9a'),
       ],
       newToDoBody: '',
       currentPage: 0,
     };
 
     this.pager = new Pager(3);
+    this.searcher = new Searcher(item => item.body);
 
     this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
@@ -97,28 +99,19 @@ export class ToDoApp extends Component {
   }
 
   searchToDos(searchTerm) {
+    const searchedToDos = this.searcher.searchItems(this.state.toDos, searchTerm);
+    const pagesCount = this.pager.getPagesCount(searchedToDos.length);
+
     this.setState({
       searchTerm,
+      currentPage: Math.min(this.state.currentPage, pagesCount - 1),
     });
   }
 
   getRenderableToDos() {
-    function getFilteredToDos(searchTerm, toDos) {
-      return toDos.filter(toDo =>
-        toDo.body.trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) !== -1
-      );
-    }
-
-    const searchTerm = this.state.searchTerm;
-
-    const filteredTodos =
-      searchTerm.trim().length
-      ? getFilteredToDos(searchTerm, this.state.toDos)
-      : this.state.toDos.slice(0);
-
-    const renderableToDos = this.pager.getItemsOnPage(filteredTodos, this.state.currentPage);
-
-    return renderableToDos;
+    const searchedToDos = this.searcher.searchItems(this.state.toDos, this.state.searchTerm);
+    const toDosOnPage = this.pager.getItemsOnPage(searchedToDos, this.state.currentPage);
+    return toDosOnPage;
   }
 
   canCreateNewToDo() {
@@ -147,6 +140,8 @@ export class ToDoApp extends Component {
   }
 
   render() {
+    const searchedToDos = this.searcher.searchItems(this.state.toDos, this.state.searchTerm);
+
     return (
       <Panel>
         <PanelHeader>
@@ -173,7 +168,7 @@ export class ToDoApp extends Component {
 
         <Button
           onClick={this.handlePageNextClick}
-          isDisabled={!this.pager.canPageNext(this.state.toDos.length, this.state.currentPage)}
+          isDisabled={!this.pager.canPageNext(searchedToDos.length, this.state.currentPage)}
         >
           Next
         </Button>
