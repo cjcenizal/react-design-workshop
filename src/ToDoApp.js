@@ -108,12 +108,6 @@ export class ToDoApp extends Component {
     });
   }
 
-  getRenderableToDos() {
-    const searchedToDos = this.searcher.searchItems(this.state.toDos, this.state.searchTerm);
-    const toDosOnPage = this.pager.getItemsOnPage(searchedToDos, this.state.currentPage);
-    return toDosOnPage;
-  }
-
   canCreateNewToDo() {
     return this.state.newToDoBody.trim().length > 0;
   }
@@ -125,10 +119,28 @@ export class ToDoApp extends Component {
     });
   }
 
-  renderToDos() {
-    const renderableToDos = this.getRenderableToDos();
+  renderPagination(searchedToDos) {
+    return [
+      <Button
+          onClick={this.handlePagePreviousClick}
+          isDisabled={!this.pager.canPagePrevious(this.state.currentPage)}
+        >
+        Previous
+      </Button>,
 
-    return renderableToDos.map(item => (
+      <Button
+        onClick={this.handlePageNextClick}
+        isDisabled={!this.pager.canPageNext(searchedToDos.length, this.state.currentPage)}
+      >
+        Next
+      </Button>
+    ];
+  }
+
+  renderToDos(searchedToDos) {
+    const toDosOnPage = this.pager.getItemsOnPage(searchedToDos, this.state.currentPage);
+
+    return toDosOnPage.map(item => (
       <DeletableToDoListItem
         key={item.id}
         itemId={item.id}
@@ -159,22 +171,10 @@ export class ToDoApp extends Component {
           />
         </form>
 
-        <Button
-            onClick={this.handlePagePreviousClick}
-            isDisabled={!this.pager.canPagePrevious(this.state.currentPage)}
-          >
-          Previous
-        </Button>
-
-        <Button
-          onClick={this.handlePageNextClick}
-          isDisabled={!this.pager.canPageNext(searchedToDos.length, this.state.currentPage)}
-        >
-          Next
-        </Button>
+        {this.renderPagination(searchedToDos)}
 
         <ToDoList>
-          {this.renderToDos()}
+          {this.renderToDos(searchedToDos)}
         </ToDoList>
 
         <HorizontalRule />
