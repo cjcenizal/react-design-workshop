@@ -15,6 +15,8 @@ import {
   ToDo,
 } from './models';
 
+const ITEMS_PER_PAGE = 3;
+
 export class ToDoApp extends Component {
   constructor() {
     super();
@@ -25,8 +27,18 @@ export class ToDoApp extends Component {
         new ToDo('Build React app'),
         new ToDo('???'),
         new ToDo('Profit!'),
+        new ToDo('1'),
+        new ToDo('2'),
+        new ToDo('3'),
+        new ToDo('4'),
+        new ToDo('5'),
+        new ToDo('6'),
+        new ToDo('7'),
+        new ToDo('8'),
+        new ToDo('9'),
       ],
       newToDoBody: '',
+      currentPage: 0,
     };
 
     this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
@@ -35,6 +47,8 @@ export class ToDoApp extends Component {
     this.handleCreateTodDoFormSubmit = this.handleCreateTodDoFormSubmit.bind(this);
     this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
     this.handleDeleteToDoClick = this.handleDeleteToDoClick.bind(this);
+    this.handlePagePreviousClick = this.handlePagePreviousClick.bind(this);
+    this.handlePageNextClick = this.handlePageNextClick.bind(this);
   }
 
   handleSearchFormSubmit(event) {
@@ -66,6 +80,18 @@ export class ToDoApp extends Component {
     });
   }
 
+  handlePagePreviousClick() {
+    this.setState({
+      currentPage: this.state.currentPage - 1,
+    });
+  }
+
+  handlePageNextClick() {
+    this.setState({
+      currentPage: this.state.currentPage + 1,
+    });
+  }
+
   searchToDos(searchTerm) {
     this.setState({
       searchTerm,
@@ -79,14 +105,34 @@ export class ToDoApp extends Component {
       );
     }
 
+    function getToDosInPage(toDos, currentPage) {
+      const startIndex = currentPage * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      return toDos.filter((toDo, index) => (
+        index >= startIndex
+        && index < endIndex
+      ));
+    }
+
     const searchTerm = this.state.searchTerm;
 
-    const renderableToDos =
+    const filteredTodos =
       searchTerm.trim().length
       ? getFilteredToDos(searchTerm, this.state.toDos)
       : this.state.toDos.slice(0);
 
+    const renderableToDos = getToDosInPage(filteredTodos, this.state.currentPage);
+
     return renderableToDos;
+  }
+
+  canPagePrevious() {
+    return this.state.currentPage > 0;
+  }
+
+  canPageNext() {
+    const lastPage = Math.ceil(this.state.toDos.length / ITEMS_PER_PAGE);
+    return this.state.currentPage < lastPage - 1;
   }
 
   canCreateNewToDo() {
@@ -131,6 +177,20 @@ export class ToDoApp extends Component {
             onChange={this.handleSearchInputChange}
           />
         </form>
+
+        <Button
+            onClick={this.handlePagePreviousClick}
+            isDisabled={!this.canPagePrevious()}
+          >
+          Previous
+        </Button>
+
+        <Button
+          onClick={this.handlePageNextClick}
+          isDisabled={!this.canPageNext()}
+        >
+          Next
+        </Button>
 
         <ToDoList>
           {this.renderToDos()}
