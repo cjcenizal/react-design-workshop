@@ -15,7 +15,9 @@ import {
   ToDo,
 } from './models';
 
-const ITEMS_PER_PAGE = 3;
+import {
+  Pager,
+} from './services';
 
 export class ToDoApp extends Component {
   constructor() {
@@ -40,6 +42,8 @@ export class ToDoApp extends Component {
       newToDoBody: '',
       currentPage: 0,
     };
+
+    this.pager = new Pager(3);
 
     this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
@@ -105,15 +109,6 @@ export class ToDoApp extends Component {
       );
     }
 
-    function getToDosInPage(toDos, currentPage) {
-      const startIndex = currentPage * ITEMS_PER_PAGE;
-      const endIndex = startIndex + ITEMS_PER_PAGE;
-      return toDos.filter((toDo, index) => (
-        index >= startIndex
-        && index < endIndex
-      ));
-    }
-
     const searchTerm = this.state.searchTerm;
 
     const filteredTodos =
@@ -121,18 +116,9 @@ export class ToDoApp extends Component {
       ? getFilteredToDos(searchTerm, this.state.toDos)
       : this.state.toDos.slice(0);
 
-    const renderableToDos = getToDosInPage(filteredTodos, this.state.currentPage);
+    const renderableToDos = this.pager.getItemsOnPage(filteredTodos, this.state.currentPage);
 
     return renderableToDos;
-  }
-
-  canPagePrevious() {
-    return this.state.currentPage > 0;
-  }
-
-  canPageNext() {
-    const lastPage = Math.ceil(this.state.toDos.length / ITEMS_PER_PAGE);
-    return this.state.currentPage < lastPage - 1;
   }
 
   canCreateNewToDo() {
@@ -180,14 +166,14 @@ export class ToDoApp extends Component {
 
         <Button
             onClick={this.handlePagePreviousClick}
-            isDisabled={!this.canPagePrevious()}
+            isDisabled={!this.pager.canPagePrevious(this.state.currentPage)}
           >
           Previous
         </Button>
 
         <Button
           onClick={this.handlePageNextClick}
-          isDisabled={!this.canPageNext()}
+          isDisabled={!this.pager.canPageNext(this.state.toDos.length, this.state.currentPage)}
         >
           Next
         </Button>
