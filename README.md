@@ -25,7 +25,7 @@ All CSS has already been written.
 
 ### Build a To-do list
 
-![list_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/list_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/list_todos.png" alt="list_todos" width="400px">
 
 #### Concepts
 
@@ -66,7 +66,7 @@ All CSS has already been written.
 
 ### Add "Create To-do" functionality
 
-![create_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/create_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/create_todos.png" alt="create_todos" width="400px">
 
 #### Concepts
 
@@ -109,7 +109,7 @@ All CSS has already been written.
 
 ### Add "Delete To-do" functionality
 
-![delete_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/delete_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/delete_todos.png" alt="delete_todos" width="400px">
 
 #### Concepts
 
@@ -131,7 +131,7 @@ All CSS has already been written.
 
 ### Add "Search" functionality
 
-![search_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/search_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/search_todos.png" alt="search_todos" width="400px">
 
 #### Concepts
 
@@ -157,12 +157,12 @@ All CSS has already been written.
 
 ### Allow users to mark some To-dos as "critical"
 
-![critical_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/critical_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/critical_todos.jpg" alt="critical_todos" width="400px">
 
 #### Add "Edit" functionality
 
-![edit_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/edit_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/edit_todos.jpg" alt="edit_todos" width="400px">
 
 #### Add "Sorting" functionality
 
-![sort_todos](https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/sort_todos.jpg)
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/sort_todos.jpg" alt="sort_todos" width="400px">

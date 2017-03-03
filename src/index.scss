@@ -1,5 +1,6 @@
-$verticalRhythm: 30px;
-$fontSize: 18px;
+$fontSize: 14px;
+$verticalRhythm: 1.5rem;
+$smallRhythm: 0.5rem;
 
 @mixin border {
   border-bottom: 1px solid #D3D9DE;
@@ -28,25 +29,26 @@ $fontSize: 18px;
 body {
   display: flex;
   justify-content: center;
-  margin: 80px 0 0;
+  margin: 2rem 0 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  font-size: $fontSize;
 }
 
 .panel {
-  width: 618px;
+  width: 500px;
   background-color: #EFF2F4;
   border: 1px solid #C6CFD5;
-  padding: 40px 40px 50px;
+  padding: 2rem 2rem 2.5rem;
   box-shadow: 0 2px 8px rgba(#142E40, 0.2);
-  margin-bottom: 100px;
+  margin-bottom: 3rem;
 }
 
 .panelHeader {
   @include border;
   color: #4E6371;
-  font-size: 24px;
-  padding-bottom: 10px;
+  font-size: 1.8rem;
+  padding-bottom: $smallRhythm;
   font-weight: 300;
   margin-top: 0px;
   margin-bottom: $verticalRhythm;
@@ -59,7 +61,7 @@ body {
   padding: 0;
 
   > * + * {
-    margin-top: 10px;
+    margin-top: $smallRhythm;
   }
 }
 
@@ -68,7 +70,7 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style-position: inside;
-  padding: 20px;
+  padding: 1rem;
   background-color: #FFFFFF;
   border: 1px solid #D3D9DE;
   border-radius: 4px;
@@ -86,7 +88,7 @@ body {
   .toDoListItem__body {
     display: flex;
     align-items: center;
-    font-size: $fontSize;
+    font-size: 1rem;
     font-weight: 700;
     color: #515151;
 
@@ -117,9 +119,9 @@ body {
 
 .label {
   display: block;
-  font-size: $fontSize;
+  font-size: 1rem;
   color: #4E6371;
-  margin-bottom: 10px;
+  margin-bottom: $smallRhythm;
   font-weight: 300;
 }
 
@@ -127,8 +129,8 @@ body {
   appearance: none;
   display: block;
   width: 100%;
-  padding: 16px 20px;
-  font-size: $fontSize;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
   color: #515151;
   background-color: #FFFFFF;
   border: 1px solid #D3D9DE;
@@ -150,7 +152,7 @@ body {
 
   .checkBoxLabel__text {
     display: inline-block;
-    font-size: 14px;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #4E6371;
     margin-left: 10px;
@@ -180,8 +182,8 @@ body {
   appearance: none;
   cursor: pointer;
   display: block;
-  padding: 15px 20px;
-  font-size: $fontSize;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #FFFFFF;
   background-color: #51B087;
@@ -207,5 +209,5 @@ body {
 .sortButton {
   @include linkButton;
 
-  margin-bottom: 10px;
+  margin-bottom: $smallRhythm;
 }
