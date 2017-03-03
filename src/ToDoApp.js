@@ -102,14 +102,7 @@ export class ToDoApp extends Component {
   }
 
   renderToDos() {
-    return this.state.toDos.map((toDo, index) => {
-      return (
-        <ToDoListItem key={index}>
-          {toDo.body}
-        </ToDoListItem>
-      );
-    });
-    const renderableToDos = this.getRenderableToDos();
+    const renderableToDos = this.state.toDos;//this.getRenderableToDos();
 
     return renderableToDos.map(toDo => (
       <DeletableToDoListItem
@@ -139,17 +132,19 @@ export class ToDoApp extends Component {
           Create new To-do
         </Label>
 
-        <TextInput
-          value={this.state.newToDoBody}
-          onChange={this.handleNewToDoInputChange}
-        />
+        <form onSubmit={this.handleCreateTodDoFormSubmit}>
+          <TextInput
+            value={this.state.newToDoBody}
+            onChange={this.handleNewToDoInputChange}
+          />
 
-        <Button
-          onClick={this.handleCreateToDoClick}
-          isDisabled={!this.canCreateNewToDo()}
-        >
-          Create To-do
-        </Button>
+          <Button
+            onClick={this.handleCreateToDoClick}
+            isDisabled={!this.canCreateNewToDo()}
+          >
+            Create To-do
+          </Button>
+        </form>
       </Panel>
     );
   }

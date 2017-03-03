@@ -15,7 +15,7 @@ This workshop is based on the [Thinking in React tutorial.](https://facebook.git
 * [Challenges](#challenges)
   1. [Build the To-dos Panel](#1-build-the-to-dos-panel)
   2. [Add To-dos to the Panel](#2-add-to-dos-to-the-panel)
-  3. [Add "Create To-do" functionality](#4-add-delete-to-do-functionality)
+  3. [Add "Create To-do" functionality](#3-add-create-to-do-functionality)
   4. [Add "Delete To-do" functionality](#4-add-delete-to-do-functionality)
 * [Bonus challenges](#bonus-challenges)
 
@@ -232,13 +232,12 @@ render() {
 }
 ```
 
-This doesn't really do much in the browser so let's add some items to it. Create `/components/ToDoListemItem.js`:
+This doesn't really do much in the browser so let's add some items to it. Create `/components/ToDoListemItem.js`
+so that it represents this markup:
 
 ```html
 <li class="toDoListItem">
-  <div class="toDoListItem__body">
-    <!-- Render the `children` prop in here. -->
-  </div>
+  <!-- Render the `children` prop in here. -->
 </li>
 ```
 
@@ -576,25 +575,99 @@ full implications of this detail.
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/delete_todos.png" alt="delete_todos" width="400px">
 
-#### Concepts
+OK, technically you've made a React app by this point, so let's take that one off the list. Crap!
+There's no functionality for deleting To-dos yet. Let's do it to it.
 
-* Component substitutability
-* Avoiding overloading
+#### Build a ToDoListItemButton component
 
-#### Build components
+Let's get the `ToDoListItemButton` component out of the way. This will be used to render the actual "Delete" button.
+Put this in its render method, and make sure it accepts the `onClick` prop:
 
-1. Update ToDoListItem with additional markup
-2. Build DeletableToDoListItem
+```html
+<button
+  className="toDoListItem__button"
+  onClick={props.onClick}
+>
+  {props.children}
+</button>
+```
 
-#### Business logic
+#### Add backwards-compatible functionality
 
-1. Add `handleDeleteToDoClick` handler
+Now for the fun stuff. Our design calls for this button to be on the right side of each ToDoListItem.
+Fortunately, because ToDoListItem just wraps the `children` prop, we can add this functionality
+without editing ToDoListItem's implementation details at all.
 
-> [See the solution]()
+**This is a huge backwards-compatibility win!** If we don't change the way ToDoListItem works, then
+we don't risk breaking any part of our UI which depends on it. This is important in bigger apps.
 
----------------------------------------------------------------------
+Here's how we're going to do this. We're going to create a _brand new component_ which composes
+`ToDoListItem`. Let's call it `DeletableToDoListItem`. Go ahead and create this component right now.
 
-### 4. Add "Search" functionality
+Here's how it will look in all its glory:
+
+```javascript
+import { ToDoListItem } from './ToDoListItem';
+import { ToDoListItemButton } from './ToDoListItemButton';
+
+export const DeletableToDoListItem = props => {
+  function onDeleteClick() {
+    props.onDeleteClick(props.id);
+  }
+
+  return (
+    <ToDoListItem>
+      {props.children}
+
+      <ToDoListItemButton
+        key={0}
+        onClick={onDeleteClick}
+      >
+        Delete
+      </ToDoListItemButton>
+    </ToDoListItem>
+  );
+};
+
+DeletableToDoListItem.propTypes = {
+  children: PropTypes.node,
+  id: PropTypes.number,
+  onDeleteClick: PropTypes.func,
+};
+```
+
+Can you see what it's doing? It's going to take the `children` we're already defining in our app
+and add on additonal children, which is a `ToDoListItemButton` in this case. The original
+`ToDoListItem` is fine with this, in fact it's not even aware that we're doing this. All it's
+concerned with is accepting children and wrapping them inside of a `div`. This flexibility is one
+of the great advantages of composable components.
+
+#### Substitute DeletableToDoListItem for ToDoLisItem
+
+Back in our To-do app, we need to update the `renderToDos` method to return instances of our new
+`DeletableToDoListItem`component instead of `ToDoLisItem`. We also need to provide it with a
+new `id` prop and a new `onDeleteClick` prop. Let's provide it with a reference to a method
+called `handleDeleteToDoClick` and define it like this:
+
+```javascript
+handleDeleteToDoClick(toDoId) {
+  this.setState({
+    toDos: this.state.toDos.filter(toDo => toDo.id !== toDoId),
+  });
+}
+```
+
+See how it accepts a reference to a To-do ID? See how this is the same ID we provided as a prop?
+
+This pattern of providing components with props that they'll need to provide as arguments to
+callbacks is [recommened by AirBnB](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+as an alternative to creating a partially-applied function, e.g. `this.handleDeleteToDoClick.bind(this, toDo.id)`.
+
+> **Take-aways**
+> * Leverage the composability of components to avoid making backwards-compatibility-breaking changes.
+> * Provide components with the data they'll need to provide to their callbacks.
+
+### 5. Add "Search" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/search_todos.png" alt="search_todos" width="400px">
 
@@ -622,14 +695,14 @@ full implications of this detail.
 
 ## Bonus challenges
 
-### 5. Allow users to mark some To-dos as "critical"
+### 6. Allow users to mark some To-dos as "critical"
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/critical_todos.jpg" alt="critical_todos" width="400px">
 
-### 6. Add "Edit" functionality
+### 7. Add "Edit" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/edit_todos.jpg" alt="edit_todos" width="400px">
 
-### 7. Add "Sorting" functionality
+### 8. Add "Sorting" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/sort_todos.jpg" alt="sort_todos" width="400px">

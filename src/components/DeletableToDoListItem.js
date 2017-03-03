@@ -10,18 +10,16 @@ export const DeletableToDoListItem = props => {
     props.onDeleteClick(props.id);
   }
 
-  const actions = [
-    <ToDoListItemButton
-      key={0}
-      onClick={onDeleteClick}
-    >
-      Delete
-    </ToDoListItemButton>
-  ];
-
   return (
-    <ToDoListItem actions={actions} id={props.id}>
+    <ToDoListItem>
       {props.children}
+
+      <ToDoListItemButton
+        key={0}
+        onClick={onDeleteClick}
+      >
+        Delete
+      </ToDoListItemButton>
     </ToDoListItem>
   );
 };

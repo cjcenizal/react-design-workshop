@@ -74,30 +74,16 @@ body {
   background-color: #FFFFFF;
   border: 1px solid #D3D9DE;
   border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #515151;
 }
 
 .toDoListItem--critical {
   background-color: #FFF7F7;
   border-color: #D97373;
-
-  .toDoListItem__body {
-    color: #C21B1B;
-  }
+  color: #C21B1B;
 }
-
-  .toDoListItem__body {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #515151;
-  }
-
-  .toDoListItem__actions {
-    > * + * {
-      margin-left: 10px;
-    }
-  }
 
   .toDoListItem__button {
     @include linkButton;
