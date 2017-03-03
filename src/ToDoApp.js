@@ -117,45 +117,47 @@ export class ToDoApp extends Component {
   render() {
     return (
       <Panel>
-        <PanelHeader>
-          To-dos
-        </PanelHeader>
-
-        <Label>
-          Search
-        </Label>
-
-        <form onSubmit={this.handleSearchFormSubmit}>
-          <TextInput
-            value={this.state.searchTerm}
-            onChange={this.handleSearchInputChange}
-          />
-        </form>
-
-        <ToDoList>
-          {this.renderToDos()}
-        </ToDoList>
-
-        <HorizontalRule />
-
-        <Label>
-          Create new To-do
-        </Label>
-
-        <form onSubmit={this.handleCreateTodDoFormSubmit}>
-          <TextInput
-            value={this.state.newToDoBody}
-            onChange={this.handleNewToDoInputChange}
-          />
-
-          <Button
-            onClick={this.handleCreateToDoClick}
-            isDisabled={!this.canCreateNewToDo()}
-          >
-            Create To-do
-          </Button>
-        </form>
+        {() => {}}
       </Panel>
     );
   }
+
+
+  //       <Label>
+  //         Search
+  //       </Label>
+
+  //       <form onSubmit={this.handleSearchFormSubmit}>
+  //         <TextInput
+  //           value={this.state.searchTerm}
+  //           onChange={this.handleSearchInputChange}
+  //         />
+  //       </form>
+
+  //       <ToDoList>
+  //         {this.renderToDos()}
+  //       </ToDoList>
+
+  //       <HorizontalRule />
+
+  //       <Label>
+  //         Create new To-do
+  //       </Label>
+
+  //       <form onSubmit={this.handleCreateTodDoFormSubmit}>
+  //         <TextInput
+  //           value={this.state.newToDoBody}
+  //           onChange={this.handleNewToDoInputChange}
+  //         />
+
+  //         <Button
+  //           onClick={this.handleCreateToDoClick}
+  //           isDisabled={!this.canCreateNewToDo()}
+  //         >
+  //           Create To-do
+  //         </Button>
+  //       </form>
+  //     </Panel>
+  //   );
+  // }
 }
