@@ -132,6 +132,24 @@ export class ToDoApp extends Component {
         <ToDoList>
           {this.renderToDos()}
         </ToDoList>
+
+        <HorizontalRule />
+
+        <Label>
+          Create new To-do
+        </Label>
+
+        <TextInput
+          value={this.state.newToDoBody}
+          onChange={this.handleNewToDoInputChange}
+        />
+
+        <Button
+          onClick={this.handleCreateToDoClick}
+          isDisabled={!this.canCreateNewToDo()}
+        >
+          Create To-do
+        </Button>
       </Panel>
     );
   }

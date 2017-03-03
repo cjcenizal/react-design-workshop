@@ -1,13 +1,23 @@
 # React Design Workshop
 
-> A workshop on the process of designing React components and applications.
+In this workshop, we'll implement a design and functional requirements in a React app. All the CSS has
+already been written for you, so you can focus on writing _just JavaScript!_ By the end
+of the workshop, you should be comfortable building user interfaces with React.
 
-In this workshop, we'll implement a design and functional requirements
-in a React app. Our challenge is to build a to-do list application and
-implement requirements which gradually increase in complexity. By the end of the workshop, you should
-be comfortable building user interfaces with React.
+Our challenge is to build a to-do list application and implement requirements which gradually
+increase in complexity.  Here's how it'll look:
+
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/search_todos.png" alt="search_todos" width="400px">
 
 This workshop is based on the [Thinking in React tutorial.](https://facebook.github.io/react/docs/thinking-in-react.html)
+
+* [Getting started](#getting-started)
+* [Challenges](#challenges)
+  1. [Build the To-dos Panel](#1-build-the-to-dos-panel)
+  2. [Add To-dos to the Panel](#2-add-to-dos-to-the-panel)
+  3. [Add "Create To-do" functionality](#4-add-delete-to-do-functionality)
+  4. [Add "Delete To-do" functionality](#4-add-delete-to-do-functionality)
+* [Bonus challenges](#bonus-challenges)
 
 ## Getting started
 
@@ -23,8 +33,7 @@ npm start
 
 Each of the challenges below has a screenshot of what you'll be building, a
 description of the main concepts you should be learning, and instructions on how to tackle the
-challenge. All the CSS has already been written for you, so you don't have to worry about it. If only real life
-worked like that! For those who think grit and hard work is over-rated, there are also links to the
+challenge. For those who think grit and hard work is over-rated, there are also links to the
 finished code.
 
 When you're done with these main challenges, consider trying out some of the bonus challenges
@@ -190,15 +199,13 @@ it to a different value and see it change in the browser.
 > * Use PropTypes to do basic type-checking on dependencies.
 > * Use an index.js file to export cohesive modules from one place (and import them from that one place).
 
----------------------------------------------------------------------
-
 ### 2. Add To-dos to the Panel
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/list_todos.png" alt="list_todos" width="400px">
 
 Next up, we're going to add some To-dos to our Panel.
 
-#### Create ToDoList and ToDoListItem components
+#### Build ToDoList and ToDoListItem components
 
 Let's begin by creating `/components/ToDoList.js` and adding it to our render method. Let's see if you can take the original markup and use it to create the new component, based on what you've learned so far:
 
@@ -388,52 +395,184 @@ Can you figure out how to update your `renderToDos` method to refer to the `body
 > * The render method can be split up into multiple methods for scalability.
 > * Assign a `key` prop to elements within an array, to help React identify them.
 
----------------------------------------------------------------------
-
 ### 3. Add "Create To-do" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/create_todos.png" alt="create_todos" width="400px">
 
-#### Concepts
+Time for things to get interesting! Let's let people actually create new To-dos. After all, there's
+always more... **to do**.
 
-* Event handlers
-* Business logic
-* Wiring UI with business logic
-* Controlling appearance with props
+#### (Optional) Minor UI components
 
-#### Tasks
+Our UI calls for a horizontal rule and a label for our form. Feel free to skip to the next section
+if you don't care about getting the UI just right, and just want to learn some React. For everyone
+else, here's what we want to add to our render method:
 
-1. Add markup
-   ```html
-  <hr className="horizontalRule" />
+```javascript
+<HorizontalRule />
 
-  <label className="label">
-    Create new To-do
-  </label>
+<Label>
+  Create new To-do
+</Label>
+```
 
-  <input type="text" className="textInput" />
+These components needs to represent the following markup:
 
-  <button className="button">
-    Create To-Do
-  </button>
-  ```
-2. Build HorizontalRule
-3. Build Label
-4. Build TextInput
-5. Build Button
-6. Bonus: Wrap TextInput and Button in a form element so you can submit it by hitting the enter key.
-7. Bonus: Disable Button when there's no input.
+```html
+<hr class="horizontalRule" />
 
-#### Add business logic
+<label class="label">
+  <!-- Render props.children here -->
+</label>
+```
 
-1. Add `createItem` method to `ToDoApp.js`
-2. Add an `onClick` handler
+Make it so!
 
-> [See the solution]()
+#### Build a TextInput component
 
----------------------------------------------------------------------
+Let's move on and build the UI that will drive our to-do-creation functionality. We need to give users a field
+where they can type in the body of a new To-do. Create `/components/TextInput.js`.
 
-### 3. Add "Delete To-do" functionality
+This component is going to be what the React team calls a [controlled component](https://facebook.github.io/react/docs/forms.html#controlled-components).
+With basic HTML, form elements store their state directly in the DOM. But we're using React, which
+destroys and rebuilds the DOM all the time, and expects all state to be stored in JavaScript.
+
+Check out the `value` and `onChange` props we define below. We're going to provide the value for
+this input in our app's render method, and when the user changes this value, we're going to
+update and re-provide the value to the component. From the user's point of view, they'll be
+changing the value of the input as they type.
+
+```javascript
+export const TextInput = props => {
+  return (
+    <input
+      type="text"
+      className="textInput"
+      value={props.value}
+      onChange={props.onChange}
+    />
+  );
+};
+
+TextInput.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};
+```
+
+Back in our React app, instantiate the TextInput in the render method:
+
+```javascript
+<TextInput
+  value={this.state.newToDoBody}
+  onChange={this.handleNewToDoInputChange}
+/>
+```
+
+Now we need to close the loop by adding the `newToDoBody` property to the state object, and by
+adding the onChange handler, which will update this state.
+
+```javascript
+handleNewToDoInputChange(event) {
+  this.setState({
+    newToDoBody: event.target.value,
+  });
+}
+```
+
+When we call `setState` we're telling React to change the state object and to
+invoke the `render` method again. Note that you can invoke setState multiple times in the same
+call stack and React will still only invoke render once.
+
+In your browser, you should now be able to type into the TextInput and it should behave as you
+expect.
+
+Now let's add a button so we can add a new To-do to the list!
+
+#### Build a Button component
+
+Create a file for the Button component. It should accept `children`, `onClick`, and `isDisabled`
+props. This component should render a button element with the "button" class. Assign the `onClick` prop
+to its `onClick` prop, and assign the `isDisabled` prop to its `disabled` prop.
+
+Import this component into your app and add it to the UI. For now, only add an onClick callback:
+
+```javascript
+<Button onClick={this.handleCreateToDoClick}>
+  Create To-do
+</Button>
+```
+
+Now we need to update our toDos array with a new one when the user clicks the button. Can you figure
+out how to do that? Remember, you don't want to reach into the state object and mutate it directly.
+You need to invoke `setState` and provide it with new values for the properties you want to change.
+
+Spoiler alert! Here's how to do it:
+
+```javascript
+createToDo() {
+  this.setState({
+    toDos: this.state.toDos.concat(new ToDo(this.state.newToDoBody)),
+    newToDoBody: '',
+  });
+}
+```
+
+#### Derive state and disable the button when there's no input
+
+It's kind of weird to let the user create To-dos with nothing in them. We should disable the button
+when the input is empty. Let's add the `isDisabled` prop to our Button instance and use a helper
+method to figure out if we're in a state suitable for creating a new To-do. This is called **deriving state**.
+
+```javascript
+canCreateNewToDo() {
+  return this.state.newToDoBody.trim().length > 0;
+}
+```
+
+```javascript
+<Button
+  onClick={this.handleCreateToDoClick}
+  isDisabled={!this.canCreateNewToDo()}
+>
+  Create To-do
+</Button>
+```
+
+Not all state needs to go on the `state` object. A good rule of thumb is to derive as much state at
+render-time as you can. (You'll find exceptions to this rule, of course.)
+
+#### Submit the form when you hit "Enter"
+
+Time to polish the user experience a bit. We want to create a new To-do by typing and hitting enter.
+We can support this behavior by wrapping the form components in a `<form>`.
+
+```javascript
+<form onSubmit={this.handleCreateTodDoFormSubmit}>
+  {/* The TextInput and Button go in here. */}
+</form>
+```
+
+Typically, submitting a form requires the page to reload, but we want to block that behavior. This is
+what our `onSubmit` event handler will do:
+
+```javascript
+handleCreateTodDoFormSubmit(event) {
+  event.preventDefault();
+}
+```
+
+Note that React events are actually [`SyntheticEvents`](https://facebook.github.io/react/docs/events.html),
+and not native browser events, though you can generally use them the same way. Read the docs for the
+full implications of this detail.
+
+> **Take-aways**
+> * Use **controlled components** to build form elements.
+> * Call `setState` to modify the state object and cause React to re-render your component tree.
+> * Think about which state needs to go on the `state` object and which can be **derived state**. In general, try to derive as much state as possible.
+> * The React event system simulates the native browser event system, but is a fundamentally different beast.
+
+### 4. Add "Delete To-do" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/delete_todos.png" alt="delete_todos" width="400px">
 
