@@ -7,7 +7,7 @@ import { ToDoListItemButton } from './ToDoListItemButton';
 
 export const DeletableToDoListItem = props => {
   function onDeleteClick() {
-    props.onDeleteClick(props.itemId);
+    props.onDeleteClick(props.id);
   }
 
   const actions = [
@@ -20,7 +20,7 @@ export const DeletableToDoListItem = props => {
   ];
 
   return (
-    <ToDoListItem actions={actions}>
+    <ToDoListItem actions={actions} id={props.id}>
       {props.children}
     </ToDoListItem>
   );
@@ -28,9 +28,6 @@ export const DeletableToDoListItem = props => {
 
 DeletableToDoListItem.propTypes = {
   children: PropTypes.node,
-  itemId: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  id: PropTypes.number,
   onDeleteClick: PropTypes.func,
 };

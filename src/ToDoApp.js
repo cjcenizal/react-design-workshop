@@ -9,6 +9,7 @@ import {
   PanelHeader,
   TextInput,
   ToDoList,
+  ToDoListItem,
 } from './components';
 
 import {
@@ -101,15 +102,22 @@ export class ToDoApp extends Component {
   }
 
   renderToDos() {
+    return this.state.toDos.map((toDo, index) => {
+      return (
+        <ToDoListItem key={index}>
+          {toDo.body}
+        </ToDoListItem>
+      );
+    });
     const renderableToDos = this.getRenderableToDos();
 
-    return renderableToDos.map(item => (
+    return renderableToDos.map(toDo => (
       <DeletableToDoListItem
-        key={item.id}
-        itemId={item.id}
+        key={toDo.id}
+        id={toDo.id}
         onDeleteClick={this.handleDeleteToDoClick}
       >
-        {item.body}
+        {toDo.body}
       </DeletableToDoListItem>
     ));
   }
@@ -117,11 +125,23 @@ export class ToDoApp extends Component {
   render() {
     return (
       <Panel>
-        {() => {}}
+        <PanelHeader>
+          To-dos
+        </PanelHeader>
+
+        <ToDoList>
+          {this.renderToDos()}
+        </ToDoList>
       </Panel>
     );
   }
 
+  // render() {
+  //   return (
+  //     <Panel>
+  //       <PanelHeader>
+  //          To-dos
+  //       </PanelHeader>
 
   //       <Label>
   //         Search

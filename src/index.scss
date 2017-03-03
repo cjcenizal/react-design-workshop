@@ -91,12 +91,6 @@ body {
     font-size: 1rem;
     font-weight: 700;
     color: #515151;
-
-    &:before {
-      margin-right: 10px;
-      content: counter(my-badass-counter) ".";
-      counter-increment: my-badass-counter;
-    }
   }
 
   .toDoListItem__actions {
