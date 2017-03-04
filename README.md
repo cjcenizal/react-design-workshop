@@ -779,7 +779,7 @@ Some of the CSS for these exists, some of it does not. You're on your own with t
 
 ### 6. Allow users to mark some To-dos as "critical"
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/critical_todos.png" alt="critical_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/bonus_critical_todos.png" alt="critical_todos" width="400px">
 
 Your challenge is to change the appearance of a To-do, based on whether it's "critical" or not.
 
@@ -788,7 +788,7 @@ When a To-do is critical, pass in a special class which alters the appearance of
 
 ### 7. Add "Edit" functionality
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/edit_todos.png" alt="edit_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/bonus_edit_todos.png" alt="edit_todos" width="400px">
 
 Your challenge is to allow users to change the body of an existing To-do.
 
@@ -798,7 +798,7 @@ that To-do's place.
 
 ### 8. Add "Sorting" functionality
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/sorting_todos.png" alt="sort_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/bonus_sort_todos.png" alt="sort_todos" width="400px">
 
 Your challenge is to alternate the sort direction when the user clicks the "Sort" button.
 
