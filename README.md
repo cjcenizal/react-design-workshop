@@ -17,7 +17,11 @@ This workshop is based on the [Thinking in React tutorial.](https://facebook.git
   2. [Add To-dos to the Panel](#2-add-to-dos-to-the-panel)
   3. [Add "Create To-do" functionality](#3-add-create-to-do-functionality)
   4. [Add "Delete To-do" functionality](#4-add-delete-to-do-functionality)
+  5. [Add "Search" functionality](#5-add-search-functionality)
 * [Bonus challenges](#bonus-challenges)
+  6. [Allow users to mark some To-dos as "critical"](#6-allow-users-to-mark-some-to-dos-as-critical)
+  7. [Add "Edit" functionality](#7-add-edit-functionality)
+  8. [Add "Sorting" functionality](#8-add-sorting-functionality)
 
 ## Getting started
 
@@ -777,10 +781,25 @@ Some of the CSS for these exists, some of it does not. You're on your own with t
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/critical_todos.png" alt="critical_todos" width="400px">
 
+Your challenge is to change the appearance of a To-do, based on whether it's "critical" or not.
+
+**Hint:** Add "isCritical" metadata to the ToDo model. Add a "className" prop to the ToDoListItem.
+When a To-do is critical, pass in a special class which alters the appearance of the To-do.
+
 ### 7. Add "Edit" functionality
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/edit_todos.png" alt="edit_todos" width="400px">
 
+Your challenge is to allow users to change the body of an existing To-do.
+
+**Hint:** Create a special component for editing To-dos, called something like `ToDoEditor`.
+Track the ID of the To-do that's being edited. When rendering the To-dos, render the ToDoEditor in
+that To-do's place.
+
 ### 8. Add "Sorting" functionality
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/sort_todos.png" alt="sort_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/sorting_todos.png" alt="sort_todos" width="400px">
+
+Your challenge is to alternate the sort direction when the user clicks the "Sort" button.
+
+**Hint:** Continue in the same direction we established when we added Search functionality.
