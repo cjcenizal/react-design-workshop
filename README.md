@@ -35,9 +35,9 @@ npm start
 
 ## Challenges
 
-Each of the challenges below has a screenshot of what you'll be building, a
-description of the main concepts you should be learning, and instructions on how to tackle the
-challenge. When you're done with these main challenges, consider trying out some of the bonus challenges
+Each of the challenges below has a screenshot of what you'll be building, instructions on how to tackle the
+challenge (including code snippets and links to external resources), and a summary of key take-aways.
+When you're done with these main challenges, consider trying out some of the bonus challenges
 that follow.
 
 ### 1. Build the To-dos Panel
@@ -46,10 +46,16 @@ that follow.
 
 Your first challenge is to render a list of To-dos inside of a panel.
 
+#### Open up the To-do app
+
+Open up `src/ToDoApp.js`. This is your To-do app, where you'll do most of your work. It's just a
+React component, typified by the `render` method. If you look in the browser, you'll see that React
+uses the render method to determine what to draw to the screen. Feel free to make some changes to
+what's returned by the render method before moving on.
+
 #### Build the Panel component
 
-Let's start by defining for ourselves what we want to render to the screen. We want to render
-a Panel. This is out we do that:
+Let's start by changing this render method to render a Panel. This is how we do that:
 
 ```javascript
 render() {
@@ -60,7 +66,8 @@ render() {
 }
 ```
 
-But Panel isn't available in our current scope yet. So let's import it. It makes sense to put all of our reusable components in
+Panel is a React component that will be responsible for drawing this part of our UI. But Panel isn't
+available in our current scope yet. So let's import it! It makes sense to put all of our reusable components in
 one place, so let's plan on putting them all in a `/components` directory.
 
 ```javascript
@@ -92,7 +99,7 @@ Panel.propTypes = {
 
 We're doing a few important things here:
 
-1. We're importing **React**. This is important anywhere you write [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html).
+1. We're importing **React**. This is required anywhere you write [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html).
 2. We're exporting a **[stateless functional component](https://toddmotto.com/stateless-react-components/)**.
    This is the simplest kind of component you can create in React.
 3. We're composing the **children** property into our component. This is the simplest way to [compose React components](https://facebook.github.io/react/docs/components-and-props.html#composing-components).
