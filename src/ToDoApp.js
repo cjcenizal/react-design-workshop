@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {
+  Panel,
+  PanelHeader,
+} from './components';
 
 export class ToDoApp extends Component {
   constructor() {
@@ -7,7 +11,11 @@ export class ToDoApp extends Component {
 
   render() {
     return (
-      <div>Hello world</div>
+      <Panel>
+        <PanelHeader>
+          To-dos
+        </PanelHeader>
+      </Panel>
     );
   }
 }
