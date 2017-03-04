@@ -33,10 +33,7 @@ npm start
 
 Each of the challenges below has a screenshot of what you'll be building, a
 description of the main concepts you should be learning, and instructions on how to tackle the
-challenge. For those who think grit and hard work is over-rated, there are also links to the
-finished code.
-
-When you're done with these main challenges, consider trying out some of the bonus challenges
+challenge. When you're done with these main challenges, consider trying out some of the bonus challenges
 that follow.
 
 ### 1. Build the To-dos Panel
@@ -415,7 +412,7 @@ else, here's what we want to add to our render method:
 </Label>
 ```
 
-These components needs to represent the following markup:
+These components need to represent the following markup:
 
 ```html
 <hr class="horizontalRule" />
@@ -483,6 +480,15 @@ When we call `setState` we're telling React to change the state object and to
 invoke the `render` method again. Note that you can invoke setState multiple times in the same
 call stack and React will still only invoke render once.
 
+There's one last thing we need to do, and that's to bind this method to the scope of our To-do app.
+Do this at the end of the constructor:
+
+```javascript
+this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
+```
+
+You'll need to do this for every event handler you create during this workshop.
+
 In your browser, you should now be able to type into the TextInput and it should behave as you
 expect.
 
@@ -500,6 +506,14 @@ Import this component into your app and add it to the UI. For now, only add an o
 <Button onClick={this.handleCreateToDoClick}>
   Create To-do
 </Button>
+```
+
+And define the `handleCreateToDoClick` handler. Don't forget to bind it to the correct scope!
+
+```javascript
+handleCreateToDoClick() {
+  this.createToDo();
+}
 ```
 
 Now we need to update our toDos array with a new one when the user clicks the button. Can you figure
@@ -541,7 +555,7 @@ canCreateNewToDo() {
 Not all state needs to go on the `state` object. A good rule of thumb is to derive as much state at
 render-time as you can. (You'll find exceptions to this rule, of course.)
 
-#### Submit the form when you hit "Enter"
+#### Submit the form when you hit "enter"
 
 Time to polish the user experience a bit. We want to create a new To-do by typing and hitting enter.
 We can support this behavior by wrapping the form components in a `<form>`.
@@ -561,12 +575,15 @@ handleCreateTodDoFormSubmit(event) {
 }
 ```
 
+Last reminder, don't forget to bind this handler in the constructor.
+
 Note that React events are actually [`SyntheticEvents`](https://facebook.github.io/react/docs/events.html),
 and not native browser events, though you can generally use them the same way. Read the docs for the
 full implications of this detail.
 
 > **Take-aways**
 > * Use **controlled components** to build form elements.
+> * Rememebr to _bind_ event handlers to the component's scope.
 > * Call `setState` to modify the state object and cause React to re-render your component tree.
 > * Think about which state needs to go on the `state` object and which can be **derived state**. In general, try to derive as much state as possible.
 > * The React event system simulates the native browser event system, but is a fundamentally different beast.
@@ -576,11 +593,11 @@ full implications of this detail.
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/delete_todos.png" alt="delete_todos" width="400px">
 
 OK, technically you've made a React app by this point, so let's take that one off the list. Crap!
-There's no functionality for deleting To-dos yet. Let's do it to it.
+There's no functionality for deleting To-dos yet. Guess we know what we gotta do next.
 
 #### Build a ToDoListItemButton component
 
-Let's get the `ToDoListItemButton` component out of the way. This will be used to render the actual "Delete" button.
+Let's get the `ToDoListItemButton` component out of the way. We'll use this to render the actual "Delete" button for each To-do.
 Put this in its render method, and make sure it accepts the `onClick` prop:
 
 ```html
@@ -596,9 +613,7 @@ Put this in its render method, and make sure it accepts the `onClick` prop:
 
 Now for the fun stuff. Our design calls for this button to be on the right side of each ToDoListItem.
 Fortunately, because ToDoListItem just wraps the `children` prop, we can add this functionality
-without editing ToDoListItem's implementation details at all.
-
-**This is a huge backwards-compatibility win!** If we don't change the way ToDoListItem works, then
+without editing ToDoListItem's implementation details at all. **This is a huge backwards-compatibility win!** If we don't change the way ToDoListItem works, then
 we don't risk breaking any part of our UI which depends on it. This is important in bigger apps.
 
 Here's how we're going to do this. We're going to create a _brand new component_ which composes
@@ -671,38 +686,101 @@ as an alternative to creating a partially-applied function, e.g. `this.handleDel
 
 <img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/search_todos.png" alt="search_todos" width="400px">
 
-#### Concepts
+Let's face it, we all procrastinate. Things pile up. Eventually we get up off our lazy ass and
+do one thing in the pile to feel better about ourselves or to get our significant other to
+just stop, I did it already, okay. But which one to do? Search to the rescue!
 
-* State as single source of truth
-* Render as a projection of state
-* Derive subsets of state from single source of truth
+#### Derive the searched To-dos
 
+Up to this point we've been building UI first, and then writing logic later. Let's switch things up.
+Remember how we learned about the concept of **derived state** earlier? Well, this concept applies here.
 
-#### Build components
+We know the user will specify a search term, which we'll use to filter our To-dos, which will
+determine which ones get rendered.
 
-1. Duplicate Label, form, and TextInput.
+From this series of events, you can see how the search term should live on the `state` object, and the
+filtering logic should be used to derive the filtered state. Here are the two methods we'll need to
+add to our To-do app to make this happen:
 
+```javascript
+searchToDos(searchTerm) {
+  this.setState({
+    searchTerm,
+  });
+}
 
-#### Business logic
+getRenderableToDos() {
+  function getFilteredToDos(searchTerm, toDos) {
+    return toDos.filter(toDo =>
+      toDo.body.trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) !== -1
+    );
+  }
 
-1. Add `searchTerm` state
-2. Add event handlers
-3. Add `searchToDos` and `getRenderableToDos` methods
+  const searchTerm = this.state.searchTerm;
 
-> [See the solution]()
+  const renderableToDos =
+    searchTerm.trim().length
+    ? getFilteredToDos(searchTerm, this.state.toDos)
+    : this.state.toDos.slice(0);
 
----------------------------------------------------------------------
+  return renderableToDos;
+}
+```
+
+Then, in the `renderToDos` method we already have, just map over `getRenderableToDos` instead of
+mapping over `state.toDos` directly.
+
+**Note:** getRenderableToDos is a pure function. This makes it a good candidate for extraction
+into a general-use module in the future, so we can use the same search functionality everywhere in
+our app.
+
+#### Build the Search UI
+
+We can reuse our existing components to build the search UI:
+
+```javascript
+<Label>
+  Search
+</Label>
+
+<form onSubmit={this.handleSearchFormSubmit}>
+  <TextInput
+    value={this.state.searchTerm}
+    onChange={this.handleSearchInputChange}
+  />
+</form>
+```
+
+Add the appropriate event handlers:
+
+```javascript
+handleSearchFormSubmit(event) {
+  event.preventDefault();
+  this.searchToDos(this.state.searchTerm);
+}
+
+handleSearchInputChange(event) {
+  this.searchToDos(event.target.value);
+}
+```
+
+> **Take-aways**
+> * Procrastination is opportunity's assassin. (Victor Kiam)
+> * If you want to make an easy job seem mighty hard, just keep putting off doing it. (Olin Miller)
+> * The best way to get something done is to begin. (Unknown)
 
 ## Bonus challenges
 
+Some of the CSS for these exists, some of it does not. You're on your own with these! Good luck!
+
 ### 6. Allow users to mark some To-dos as "critical"
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/critical_todos.jpg" alt="critical_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/critical_todos.png" alt="critical_todos" width="400px">
 
 ### 7. Add "Edit" functionality
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/edit_todos.jpg" alt="edit_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/edit_todos.png" alt="edit_todos" width="400px">
 
 ### 8. Add "Sorting" functionality
 
-<img src="https://github.com/cjcenizal/react-design-workshop/blob/master/design/assets/sort_todos.jpg" alt="sort_todos" width="400px">
+<img src="https://github.com/cjcenizal/react-design-workshop/blob/develop/design/assets/sort_todos.png" alt="sort_todos" width="400px">

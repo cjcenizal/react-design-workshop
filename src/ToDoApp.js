@@ -102,7 +102,7 @@ export class ToDoApp extends Component {
   }
 
   renderToDos() {
-    const renderableToDos = this.state.toDos;//this.getRenderableToDos();
+    const renderableToDos = this.getRenderableToDos();
 
     return renderableToDos.map(toDo => (
       <DeletableToDoListItem
@@ -121,6 +121,17 @@ export class ToDoApp extends Component {
         <PanelHeader>
           To-dos
         </PanelHeader>
+
+        <Label>
+          Search
+        </Label>
+
+        <form onSubmit={this.handleSearchFormSubmit}>
+          <TextInput
+            value={this.state.searchTerm}
+            onChange={this.handleSearchInputChange}
+          />
+        </form>
 
         <ToDoList>
           {this.renderToDos()}
@@ -148,49 +159,4 @@ export class ToDoApp extends Component {
       </Panel>
     );
   }
-
-  // render() {
-  //   return (
-  //     <Panel>
-  //       <PanelHeader>
-  //          To-dos
-  //       </PanelHeader>
-
-  //       <Label>
-  //         Search
-  //       </Label>
-
-  //       <form onSubmit={this.handleSearchFormSubmit}>
-  //         <TextInput
-  //           value={this.state.searchTerm}
-  //           onChange={this.handleSearchInputChange}
-  //         />
-  //       </form>
-
-  //       <ToDoList>
-  //         {this.renderToDos()}
-  //       </ToDoList>
-
-  //       <HorizontalRule />
-
-  //       <Label>
-  //         Create new To-do
-  //       </Label>
-
-  //       <form onSubmit={this.handleCreateTodDoFormSubmit}>
-  //         <TextInput
-  //           value={this.state.newToDoBody}
-  //           onChange={this.handleNewToDoInputChange}
-  //         />
-
-  //         <Button
-  //           onClick={this.handleCreateToDoClick}
-  //           isDisabled={!this.canCreateNewToDo()}
-  //         >
-  //           Create To-do
-  //         </Button>
-  //       </form>
-  //     </Panel>
-  //   );
-  // }
 }
