@@ -13,15 +13,15 @@ This workshop is based on the [Thinking in React tutorial.](https://facebook.git
 
 * [Getting started](#getting-started)
 * [Challenges](#challenges)
-  1. [Build the To-dos Panel](#1-build-the-to-dos-panel)
-  2. [Add To-dos to the Panel](#2-add-to-dos-to-the-panel)
-  3. [Add "Create To-do" functionality](#3-add-create-to-do-functionality)
-  4. [Add "Delete To-do" functionality](#4-add-delete-to-do-functionality)
-  5. [Add "Search" functionality](#5-add-search-functionality)
+  * [Build the To-dos Panel](#1-build-the-to-dos-panel)
+  * [Add To-dos to the Panel](#2-add-to-dos-to-the-panel)
+  * [Add "Create To-do" functionality](#3-add-create-to-do-functionality)
+  * [Add "Delete To-do" functionality](#4-add-delete-to-do-functionality)
+  * [Add "Search" functionality](#5-add-search-functionality)
 * [Bonus challenges](#bonus-challenges)
-  6. [Allow users to mark some To-dos as "critical"](#6-allow-users-to-mark-some-to-dos-as-critical)
-  7. [Add "Edit" functionality](#7-add-edit-functionality)
-  8. [Add "Sorting" functionality](#8-add-sorting-functionality)
+  * [Allow users to mark some To-dos as "critical"](#6-allow-users-to-mark-some-to-dos-as-critical)
+  * [Add "Edit" functionality](#7-add-edit-functionality)
+  * [Add "Sorting" functionality](#8-add-sorting-functionality)
 
 ## Getting started
 
