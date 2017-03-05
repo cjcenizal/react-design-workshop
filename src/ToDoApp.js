@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import {
   Button,
+  DeletableToDoListItem,
   HorizontalRule,
   Label,
   Panel,
   PanelHeader,
   TextInput,
   ToDoList,
-  ToDoListItem,
 } from './components';
 
 import {
@@ -31,6 +31,7 @@ export class ToDoApp extends Component {
     this.handleCreateTodDoFormSubmit = this.handleCreateTodDoFormSubmit.bind(this);
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
     this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
+    this.handleDeleteToDoClick = this.handleDeleteToDoClick.bind(this);
   }
 
   canCreateNewToDo() {
@@ -58,12 +59,22 @@ export class ToDoApp extends Component {
     this.createToDo();
   }
 
+  handleDeleteToDoClick(toDoId) {
+    this.setState({
+      toDos: this.state.toDos.filter(toDo => toDo.id !== toDoId),
+    });
+  }
+
   renderToDos() {
     return this.state.toDos.map((toDo, index) => {
       return (
-        <ToDoListItem key={index}>
+        <DeletableToDoListItem
+          key={toDo.id}
+          id={toDo.id}
+          onDeleteClick={this.handleDeleteToDoClick}
+        >
           {toDo.body}
-        </ToDoListItem>
+        </DeletableToDoListItem>
       );
     });
   }
