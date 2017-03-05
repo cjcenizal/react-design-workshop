@@ -21,6 +21,7 @@ export class ToDoApp extends Component {
 
     this.state = {
       newToDoBody: '',
+      searchTerm: '',
       toDos: [
         new ToDo('Build React app'),
         new ToDo('???'),
@@ -32,6 +33,8 @@ export class ToDoApp extends Component {
     this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
     this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
     this.handleDeleteToDoClick = this.handleDeleteToDoClick.bind(this);
+    this.handleSearchFormSubmit = this.handleSearchFormSubmit.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
 
   canCreateNewToDo() {
@@ -43,6 +46,29 @@ export class ToDoApp extends Component {
       toDos: this.state.toDos.concat(new ToDo(this.state.newToDoBody)),
       newToDoBody: '',
     });
+  }
+
+  searchToDos(searchTerm) {
+    this.setState({
+      searchTerm,
+    });
+  }
+
+  getRenderableToDos() {
+    function getFilteredToDos(searchTerm, toDos) {
+      return toDos.filter(toDo =>
+        toDo.body.trim().toLowerCase().indexOf(searchTerm.trim().toLowerCase()) !== -1
+      );
+    }
+
+    const searchTerm = this.state.searchTerm;
+
+    const renderableToDos =
+      searchTerm.trim().length
+      ? getFilteredToDos(searchTerm, this.state.toDos)
+      : this.state.toDos.slice(0);
+
+    return renderableToDos;
   }
 
   handleCreateTodDoFormSubmit(event) {
@@ -65,8 +91,17 @@ export class ToDoApp extends Component {
     });
   }
 
+  handleSearchFormSubmit(event) {
+    event.preventDefault();
+    this.searchToDos(this.state.searchTerm);
+  }
+
+  handleSearchInputChange(event) {
+    this.searchToDos(event.target.value);
+  }
+
   renderToDos() {
-    return this.state.toDos.map((toDo, index) => {
+    return this.getRenderableToDos().map((toDo, index) => {
       return (
         <DeletableToDoListItem
           key={toDo.id}
@@ -85,6 +120,17 @@ export class ToDoApp extends Component {
         <PanelHeader>
           To-dos
         </PanelHeader>
+
+        <Label>
+          Search
+        </Label>
+
+        <form onSubmit={this.handleSearchFormSubmit}>
+          <TextInput
+            value={this.state.searchTerm}
+            onChange={this.handleSearchInputChange}
+          />
+        </form>
 
         <ToDoList>
           {this.renderToDos()}
