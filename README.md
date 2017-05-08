@@ -252,7 +252,7 @@ render() {
 }
 ```
 
-This doesn't really do much in the browser so let's add some items to it. Create `/components/ToDoListemItem.js`
+This doesn't really do much in the browser so let's add some items to it. Create `/components/ToDoListItem.js`
 so that it represents this markup:
 
 ```html
@@ -293,7 +293,7 @@ want to dynamically define the To-dos that get rendered. To do that (ha! "to do"
 define an array on our state object which will contain these To-dos. We'll refer to this array
 in the render method.
 
-In the constructor, define a state object after the `super` invocation:
+In the `ToDoApp` constructor, define a state object after the `super` invocation:
 
 ```javascript
 constructor() {
@@ -304,7 +304,7 @@ constructor() {
       'Build React app',
       '???',
       'Profit!',
-    ],
+    ]
   };
 }
 ```
@@ -405,7 +405,7 @@ toDos: [
 ],
 ```
 
-Can you figure out how to update your `renderToDos` method to refer to the `body` property on these instances?
+Can you figure out how to update your `renderToDos` method to refer to the `body` property and `id` property on these instances?
 
 > **Take-aways**
 > * In React, user interfaces are composed of React components which are composed of other React components, all the way down.
