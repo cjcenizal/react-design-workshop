@@ -198,6 +198,13 @@ render() {
 }
 ```
 
+Don't forget to include the new component in `/components/index.js`
+
+```
+export { Panel } from './Panel';
+export { PanelHeader } from './PanelHeader';
+```
+
 See how the string "To-dos" gets rendered in the browser?
 It's because we're providing that string as the `children` prop to the PanelHeader component. Try changing
 it to a different value and see it change in the browser.
