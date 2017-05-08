@@ -464,6 +464,10 @@ update and re-provide the value to the component. From the user's point of view,
 changing the value of the input as they type.
 
 ```javascript
+import React, {
+  PropTypes,
+} from 'react';
+
 export const TextInput = props => {
   return (
     <input
